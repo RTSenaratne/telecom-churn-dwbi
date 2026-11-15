@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.DS_Store
+*.tmp
+*.bak
+cleaned_master.pkl
+telecom_dw_new.db
+
