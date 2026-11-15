@@ -1,0 +1,40 @@
+[22:43:25] EXTRACT: Reading Source 1 - Customer & Billing System (CSV)
+[22:43:25]   -> 7043 rows, 17 columns extracted
+[22:43:25] EXTRACT: Reading Source 2 - Location Reference System (CSV)
+[22:43:25]   -> 1652 rows, 6 columns extracted
+[22:43:25] EXTRACT: Reading Source 3 - Service Provisioning System (JSON)
+[22:43:25]   -> 7043 rows, 10 columns extracted
+[22:43:25] TRANSFORM: Joining sources on Zip_Code and CustomerID
+[22:43:25]   -> Merged dataset: 7043 rows, 31 columns
+[22:43:25] TRANSFORM: Missing value handling
+[22:43:25]   -> Fixed 0 blank Total_Charges values (set to 0, cast to float)
+[22:43:25]   -> Filled 0 null Churn_Reason values
+[22:43:25] TRANSFORM: Deduplication check
+[22:43:25]   -> Duplicate CustomerIDs found: 0 (none removed - already clean)
+[22:43:25] TRANSFORM: Standardisation - trimming whitespace on text columns
+[22:43:25]   -> Trimmed 22 text columns
+[22:43:25] TRANSFORM: Derived attribute creation
+[22:43:25]   -> Created Avg_Monthly_Spend and Tenure_Years derived columns
+[22:43:25] TRANSFORM: Data type conversion check
+[22:43:25]   -> Confirmed Churn_Value, Churn_Score, CLTV as integer types
+[22:43:25] TRANSFORM COMPLETE: Final cleaned dataset 7043 rows x 33 columns
+[22:43:25] LOAD: Connecting to target warehouse (SQLite)
+[22:43:25] LOAD: Building Dim_Customer
+[22:43:25]   -> Loaded 7043 rows
+[22:43:25] LOAD: Building Dim_Location
+[22:43:25]   -> Loaded 1652 rows
+[22:43:25] LOAD: Building Dim_Service (junk dimension)
+[22:43:25]   -> Loaded 322 rows
+[22:43:25] LOAD: Building Dim_Contract
+[22:43:25]   -> Loaded 24 rows
+[22:43:25] LOAD: Building Dim_Date
+[22:43:25]   -> Loaded 1 row
+[22:43:25] LOAD: Building Fact_CustomerAccount (attaching surrogate keys)
+[22:43:25]   -> Loaded 7043 rows into Fact_CustomerAccount
+[22:43:25] VALIDATION: Checking for null foreign keys
+[22:43:25]   -> Null foreign keys found: 0 (expected: 0)
+[22:43:25] VALIDATION: Comparing churn rate before vs after load
+[22:43:25]   -> Source churn rate: 26.5370% | Warehouse churn rate: 26.5370% | Match: True
+[22:43:25] VALIDATION: Row count reconciliation
+[22:43:25]   -> Source rows: 7043 | Fact table rows: 7043 | Match: True
+[22:43:25] ETL PIPELINE COMPLETE
